@@ -56,7 +56,6 @@ export const fetchUser = createAsyncThunk(
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log(error);
         if (error.response?.status === 400) {
           const redirectURL = `${window.location.href}sign-in`;
           window.open(redirectURL, '_self');
