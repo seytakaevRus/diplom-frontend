@@ -41,7 +41,7 @@ const Header = () => {
         </Link>
         <Box>
         <Link to="/" style={MenuStyle}>Курсы</Link>
-        <Link to="/" style={MenuStyle}>Отзывы</Link>
+        <Link to="/reviews" style={MenuStyle}>Отзывы</Link>
         <Link to="/" style={MenuStyle}>Вопросы</Link>
         <Link to="/" style={MenuStyle}> Компьютер для занятий</Link>
 
