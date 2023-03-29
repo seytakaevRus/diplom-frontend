@@ -17,7 +17,6 @@ import {
 
 } from '@mui/material';
 
-import Header from '../../components/Header/Header.component';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { lightGreen } from '@mui/material/colors';
 
@@ -43,11 +42,8 @@ export const Questions = memo(() => {
 
     return ( 
         <Box>
-            <Header />
             <ThemeProvider theme={theme}>
                 <Container component="main" sx={{ marginTop: 20 }}>
-
-                    <CssBaseline />
                     <Box
                         sx={{
                             marginTop: 8,

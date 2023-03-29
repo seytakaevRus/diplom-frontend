@@ -13,8 +13,6 @@ import {
 
 } from '@mui/material';
 
-import Header from '../../components/Header/Header.component';
-
 
 const theme = createTheme();
 
@@ -24,11 +22,9 @@ export const ChoosingComputer = memo(() => {
 
     return (
         <Box>
-            <Header />
             <ThemeProvider theme={theme}>
                 <Container component="main" sx={{ marginTop: 20 }}>
 
-                    <CssBaseline />
                     <Box
                         sx={{
                             marginTop: 8,
