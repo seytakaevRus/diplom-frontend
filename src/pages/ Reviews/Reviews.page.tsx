@@ -38,22 +38,18 @@ export const Reviews = memo(() => {
   const handleChange = (event: SelectChangeEvent) => {
     setCourse(event.target.value as string);}
     const labels: { [index: string]: string } = {
-        0.5: 'Useless',
-        1: 'Useless+',
-        1.5: 'Poor',
-        2: 'Poor+',
-        2.5: 'Ok',
-        3: 'Ok+',
-        3.5: 'Good',
-        4: 'Good+',
-        4.5: 'Excellent',
-        5: 'Excellent+',
+       
+        1: 'Бесполезный',
+        2: 'Пойдет',
+        3: 'Ok',
+        4: 'Хорошо',
+        5: 'Отлично',
       };
       
       function getLabelText(value: number) {
         return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
       }
-      const [value, setValue] = React.useState<number | null>(2);
+      const [value, setValue] = React.useState<number | null>(4);
   const [hover, setHover] = React.useState(-1);
 
   useEffect(() => {
@@ -69,7 +65,7 @@ export const Reviews = memo(() => {
     <ThemeProvider theme={theme}>
         
       {error && <Alert severity="error">{error}</Alert>}
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{ marginTop: 20 }}>
         
         <CssBaseline />
         <Box
@@ -89,7 +85,7 @@ export const Reviews = memo(() => {
             noValidate
             sx={{ mt: 1 }}
           >
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ minWidth: 520 }}>
       <FormControl fullWidth>
         <InputLabel >Выбрать курс</InputLabel>
         <Select
@@ -97,10 +93,10 @@ export const Reviews = memo(() => {
           label="Выбрать курс"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Scratch</MenuItem>
-          <MenuItem value={20}>Roblox</MenuItem>
-          <MenuItem value={30}>Web/HTML</MenuItem>
-          <MenuItem value={30}>Python</MenuItem>
+          <MenuItem value={1}>Scratch</MenuItem>
+          <MenuItem value={2}>Roblox</MenuItem>
+          <MenuItem value={3}>Web/HTML</MenuItem>
+          <MenuItem value={3}>Python</MenuItem>
         </Select>
       </FormControl>
     </Box>
@@ -119,10 +115,11 @@ export const Reviews = memo(() => {
         alignItems: 'center',
       }}
     >
+      <Typography sx={{marginRight:10}}>Установите рейтинг курса:</Typography>
       <Rating
         name="hover-feedback"
         value={value}
-        precision={0.5}
+        precision={1}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
           setValue(newValue);
@@ -138,7 +135,6 @@ export const Reviews = memo(() => {
     </Box>
             <Button
               type="submit"
-              fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
