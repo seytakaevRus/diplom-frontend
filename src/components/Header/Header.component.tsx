@@ -12,7 +12,7 @@ export const Header = () => {
           alignItems="center"
           justifyContent="space-evenly"
           width="100%"
-          p='10px 0'
+          p="10px 0"
         >
           <Link to="/" className={styles.link}>
             <Typography
@@ -29,7 +29,7 @@ export const Header = () => {
               EazyLearning.
             </Typography>
           </Link>
-          <Link to="/" className={styles.menu}>
+          <Link to="/courses" className={styles.menu}>
             Курсы
           </Link>
           <Link to="/reviews" className={styles.menu}>

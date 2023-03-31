@@ -1,4 +1,3 @@
-
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -7,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { App } from './App';
 import { Reviews } from './pages/ Reviews';
 import { ChoosingComputer } from './pages/ChoosingComputer';
+import { CourseById } from './pages/CourseById';
 import { Courses } from './pages/Courses';
 import { Error404Page } from './pages/Error404';
 import { Home } from './pages/Home';
@@ -26,16 +26,20 @@ const routers = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/courses',
-        element: <Courses />,
-      },
-      {
         path: '/questions',
         element: <Questions />,
       },
       {
         path: '/choosing-computer',
         element: <ChoosingComputer />,
+      },
+      {
+        path: '/courses',
+        element: <Courses />,
+      },
+      {
+        path: '/courses/:id',
+        element: <CourseById />,
       },
       {
         path: '/reviews',

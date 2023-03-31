@@ -34,12 +34,11 @@ const labels: { [index: string]: string } = {
 
 const getLabelText = (value: number) => {
   return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
-}
+};
 
 export const Reviews = memo(() => {
-  const { userInfo, error } = useAppSelector(selectAuthData);
-  const navigate = useNavigate();
-  
+  const { error } = useAppSelector(selectAuthData);
+
   const [course, setCourse] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -48,12 +47,6 @@ export const Reviews = memo(() => {
 
   const [value, setValue] = React.useState<number | null>(0);
   const [hover, setHover] = React.useState(-1);
-
-  useEffect(() => {
-    if (userInfo) {
-      navigate('/');
-    }
-  }, [userInfo]);
 
   return (
     <Box>

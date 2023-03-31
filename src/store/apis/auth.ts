@@ -7,7 +7,7 @@ import { UserInfoType } from '../../types/user-info';
 import instance from '../../utils/axios';
 
 export const registerUser = createAsyncThunk(
-  'auth/sign-up',
+  'registerUser',
   async (input: SignUpInput, { rejectWithValue }) => {
     try {
       const { data } = await instance.post<UserInfoType>(
@@ -28,7 +28,7 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  'auth/sign-in',
+  'loginUser',
   async (input: SignInInput, { rejectWithValue }) => {
     try {
       const { data } = await instance.post<UserInfoType>(
@@ -49,7 +49,7 @@ export const loginUser = createAsyncThunk(
 );
 
 export const fetchUser = createAsyncThunk(
-  'auth/whoami',
+  'fetchUser',
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await instance.get<UserInfoType>('/auth/whoami');
