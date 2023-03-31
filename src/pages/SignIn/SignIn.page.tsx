@@ -107,7 +107,7 @@ export const SignInPage = memo(() => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, pt: 1, pb: 1 }}
             >
               Войти
             </Button>

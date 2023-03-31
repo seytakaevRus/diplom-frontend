@@ -18,6 +18,7 @@ export const App = memo(() => {
       <CssBaseline />
       <Header />
       <Box paddingTop='82px'>
+
         <Outlet />
       </Box>
     </div>
