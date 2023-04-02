@@ -1,8 +1,6 @@
 import { memo, useEffect } from 'react';
 import {
   Button,
-  CssBaseline,
-  TextField,
   Grid,
   Box,
   Typography,
@@ -18,6 +16,7 @@ import { SignInInput } from './SignIn.type';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { loginUser } from '../../store/apis/auth';
 import { selectAuthData } from '../../store/slices/auth';
+import { TextField } from '../../components/TextField';
 
 const theme = createTheme();
 
@@ -27,8 +26,8 @@ export const SignInPage = memo(() => {
   const navigate = useNavigate();
 
   const {
-    register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<SignInInput>();
 
@@ -46,7 +45,6 @@ export const SignInPage = memo(() => {
     <ThemeProvider theme={theme}>
       {error && <Alert severity="error">{error}</Alert>}
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -65,7 +63,7 @@ export const SignInPage = memo(() => {
             sx={{ mt: 1 }}
           >
             <TextField
-              {...register('email', {
+              rules={{
                 required: 'Поле не может быть пустым',
                 maxLength: {
                   value: 50,
@@ -76,33 +74,30 @@ export const SignInPage = memo(() => {
                   value: /^\S+@\S+\.\S+$/,
                   message: 'Почта не является валидной',
                 },
-              })}
-              margin="normal"
-              fullWidth
-              id="email"
+              }}
+              name="email"
               label="Почта"
-              autoComplete="email"
-              autoFocus
-              error={errors.email ? true : false}
-              helperText={errors.email?.message}
+              control={control}
+              errorMessage={errors.email?.message}
+              isError={errors.email ? true : false}
             />
             <TextField
-              {...register('password', {
+              rules={{
                 required: 'Поле не может быть пустым',
                 maxLength: {
                   value: 50,
                   message:
                     'Значение поля не может быть больше, чем 50 символов',
                 },
-              })}
-              margin="normal"
-              fullWidth
+              }}
               label="Пароль"
+              name="password"
               type="password"
-              id="password"
-              error={errors.password ? true : false}
-              helperText={errors.password?.message}
+              control={control}
+              errorMessage={errors.password?.message}
+              isError={errors.password ? true : false}
             />
+            
             <Button
               type="submit"
               fullWidth

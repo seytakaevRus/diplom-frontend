@@ -1,7 +1,6 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import {
   Button,
-  TextField,
   Box,
   Typography,
   Container,
@@ -16,6 +15,10 @@ import {
 } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { Controller, useForm } from 'react-hook-form';
+
+import { TextField } from '../../components/TextField';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { fetchCourses } from '../../store/apis/courses';
 
 interface ReviewsInput {
   course: string;
@@ -37,6 +40,13 @@ export const Reviews = memo(() => {
       review: '',
     },
   });
+
+  const { courseArray } = useAppSelector((state) => state.courses);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCourses());
+  }, []);
 
   const onSubmit = (data: ReviewsInput) => {
     console.log(data);
@@ -75,11 +85,9 @@ export const Reviews = memo(() => {
                     render={({ field }) => (
                       <>
                         <Select {...field} label="Выбрать курс">
-                          {/* TODO: Добавить динамические данные */}
-                          <MenuItem value="Scratch">Scratch</MenuItem>
-                          <MenuItem value="Roblox">Roblox</MenuItem>
-                          <MenuItem value="Web/HTML">Web/HTML</MenuItem>
-                          <MenuItem value="Python">Python</MenuItem>
+                          {courseArray.map(({id, title}) => 
+                             <MenuItem key={id} value={title}>{title}</MenuItem>
+                          )}
                         </Select>
                         <FormHelperText>
                           {errors.course?.message}
@@ -90,23 +98,16 @@ export const Reviews = memo(() => {
                 </FormControl>
               </Box>
               <Box>
-                <Controller
+                <TextField
                   name="review"
                   control={control}
+                  isError={errors.review ? true : false}
+                  errorMessage={errors.review?.message}
+                  multiline
+                  label="Отзыв"
                   rules={{
                     required: 'Поле не может быть пустым',
                   }}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      margin="normal"
-                      fullWidth
-                      placeholder="Пожалуйста введите ваш текст"
-                      multiline
-                      error={errors.review ? true : false}
-                      helperText={errors.review?.message}
-                    />
-                  )}
                 />
               </Box>
               <Box

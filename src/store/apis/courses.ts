@@ -3,11 +3,15 @@ import { AxiosError } from 'axios';
 
 import { CourseInfoType, CourseType } from '../../types/courses';
 import instance from '../../utils/axios';
+import { RootState } from '../store';
 
 export const fetchCourses = createAsyncThunk(
   'fetchCourses',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
     try {
+      const state = getState() as RootState;
+      if (state.courses.courseArray.length !== 0) return;
+
       const { data } = await instance.get<CourseType[]>('/courses');
       return data;
     } catch (error) {

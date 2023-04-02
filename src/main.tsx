@@ -15,6 +15,7 @@ import { SignInPage } from './pages/SignIn';
 import { SignUpPage } from './pages/SignUp';
 import { store } from './store/store';
 import './index.css';
+import { CssBaseline } from '@mui/material';
 
 const routers = createBrowserRouter([
   {
@@ -61,6 +62,7 @@ const routers = createBrowserRouter([
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <Provider store={store}>
+      <CssBaseline />
       <RouterProvider router={routers} />
     </Provider>
   </StrictMode>,

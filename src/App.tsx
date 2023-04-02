@@ -1,4 +1,4 @@
-import { Box, CssBaseline } from '@mui/material';
+import { Box } from '@mui/material';
 import { memo, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
@@ -15,7 +15,6 @@ export const App = memo(() => {
 
   return (
     <>
-      <CssBaseline />
       <Header />
       <Box paddingTop="82px" >
         <Outlet />

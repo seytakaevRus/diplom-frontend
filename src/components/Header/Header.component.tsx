@@ -1,11 +1,12 @@
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './Header.module.css';
 
-export const Header = () => {
+export const Header = memo(() => {
   return (
-    <AppBar position="fixed" sx={{ background: 'black', p: '0 24px' }} >
+    <AppBar position="fixed" sx={{ background: 'black', p: '0 24px' }}>
       <Toolbar>
         <Box
           display="flex"
@@ -29,7 +30,7 @@ export const Header = () => {
               EazyLearning.
             </Typography>
           </Link>
-          <Box display='flex' gap='15px'>
+          <Box display="flex" gap="15px">
             <Link to="/courses" className={styles.menu}>
               Курсы
             </Link>
@@ -47,4 +48,4 @@ export const Header = () => {
       </Toolbar>
     </AppBar>
   );
-};
+});
