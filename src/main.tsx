@@ -14,6 +14,7 @@ import { Questions } from './pages/Questions';
 import { SignInPage } from './pages/SignIn';
 import { SignUpPage } from './pages/SignUp';
 import { store } from './store/store';
+import './index.css';
 
 const routers = createBrowserRouter([
   {

@@ -1,4 +1,7 @@
-import { audienceType } from '../constants/audience';
+const audienceType = {
+  child: 'child',
+  teenager: 'teenager',
+} as const;
 
 interface ChapterWithLessons {
   id: number;

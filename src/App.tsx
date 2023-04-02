@@ -14,13 +14,12 @@ export const App = memo(() => {
   }, []);
 
   return (
-    <div className="App">
+    <>
       <CssBaseline />
       <Header />
-      <Box paddingTop='82px'>
-
+      <Box paddingTop="82px" >
         <Outlet />
       </Box>
-    </div>
+    </>
   );
 });

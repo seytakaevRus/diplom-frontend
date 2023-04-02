@@ -1,90 +1,152 @@
+import {
+  Box,
+  CircularProgress,
+  Drawer,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import { memo, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
+import EastIcon from '@mui/icons-material/East';
+import WestIcon from '@mui/icons-material/West';
 
+import { MarkdownImage } from '../../components/MarkdownImage';
 import { fetchCourseById } from '../../store/apis/courses';
+import { fetchLessonById } from '../../store/apis/lessons';
+import {
+  goToCertainLesson,
+  goToNextLesson,
+  goToPreviousLesson,
+} from '../../store/slices/lessons';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
-const content = `### 1.1 О курсе
-
-Python-разработчик
-------------------
-
-Добро пожаловать на наш курс! Мы очень рады, что вы решили обучаться с нами. Давайте в этом уроке уточним некоторые детали перед тем как начать изучать Python.
-
-Итак, вы решили стать Python-разработчиком. Почему именно Python? Правильно ли вы сделали свой выбор или же просто где-то услышали это загадочное слово?
-
-Python – один из самых популярных языков программирования. Он последователен, прост, понятен и сочетает в себе легкость в использовании, низкую сложность в изучении и большую выразительную силу.
-
-Сфер применения у языка большое множество, вот небольшой список профессий, где используется Python:
-
-*   Backend-разработка
-*   Machine Learning
-*   Data Science
-*   DevOps
-*   MLOps
-*   BI
-
-Если для вас эти слова еще не знакомы, то прочитайте про эти профессии и подумайте какая область знаний вас наиболее привлекает. Таким образом можно сразу определить свой вектор развития и не распыляться на темы, которые вам не нужны. Наш курс имеет уклон в сторону Backend-разработки, так как автор имеет наибольшую экспертизу именно в этой области знаний.
-
-Давайте разберемся стоит ли вам становиться именно Python-разработчиком!
-
-Почему Python?
---------------
-
-На наш взгляд главным достоинством языка является его популярность. Из этого вытекает множество плюсов:
-
-*   Много рабочих мест – множество стартапов когда-то давно взяли язык как основной для своих разработок, и он прижился в компании.
-*   Большое комьюнити – огромная куча уже написанного кода облегчает вам задачу в написании своего. Можно использовать чужие готовые решения и решать рабочие задачи быстро и эффективно.
-*   Язык привлекает большое количество сильных и опытных разработчиков.
-
-Из других преимуществ:
-
-*   Язык – многопрофильный, если вам надоела Backend-разработка, вы можете с меньшей сложностью перекатиться в Machine Learning.
-*   Шикарный дизайн языка позволяет писать классный и хорошо читаемый код.
-*   Лаконичность языка позволяет писать меньше кода
-
-Когда лучше не использовать Python?
------------------------------------
-
-Python – достаточно быстрый язык для современных приложений, но его скорости может не хватить если вы пишите программы, которые должны работать очень быстро. Особенно это касается задач связанных с работой процессора, например вычисления. С этими задачами лучше справятся Go, C++ или Java. Но тут стоит кое-что учесть:
-
-*   ачественный алгоритм в Python работает быстрее чем некачественный в C.
-*   В Backend-разработке зачастую основное время тратится на бездействие и ожидание либо ответа от сервера, либо от базы данных, и поэтому недостаточная производительность языка слабо сказывается на скорости работы.
-
-Написание программ
-------------------
-
-У всех на входе в разработку разный уровень. Кто-то уже писал программы в школе, кто-то переходит из другой профессии и может случиться так, что вы можете не представлять чем вообще занимаются разработчики. Чтобы развеять эту таинственность предлагаю ознакомиться с базовыми понятиями, которые мы используем в нашем русле.
-
-Компьютер – не живое существо, он не понимает наших слов и ему нужно давать четкие указания – что и как ему нужно сделать, или иным языком – дать **последовательность команд.**
-
-Последовательность команд – это такой набор задач для компьютера, в качестве команды может быть задано любое действие, например сложить два числа или отправить электронное письмо для мамы. Последовательность команд образует скрипт или программу.
-
-Как же написать эти команды? Если вы напишите на русском языке обычную фразу, компьютер вас не поймет и именно поэтому нужно писать команды используя **язык программирования.**
-
-Язык программирования – набор слов (лексем), которые программист использует для создания команд. В нашем случае языком программирования является Python.
-
-Как писать мы разобрались, но где же их писать? В текстовом блокноте? В документе Word? Для написания программы программисты обычно используют интегрированную среду разработки или IDE.
-
-IDE – программа для разработчиков, которая помогает в написании других программ. Например выводит подсказки, подсвечивает синтаксические ошибки и делает другие полезные вещи. Самая популярная IDE для Python это PyCharm.
-
-Хорошо, теперь мы скачали и установили себе IDE, написали какую-то программу на языке Python – как же заставить ее работать? Для того, чтобы программу можно было запустить нужен **интерпретатор.**
-
-Интерпретатор – это еще одна программа, которая выполняет ваш написанный код. Вдаваться в подробности о том как она это делает пока не будем.
-
-Это все, что нам нужно знать на первом этапе. Осталось понять как написать программу и изучить язык.`;
+const drawerWidth = 300;
 
 export const CourseById = memo(() => {
   const { id } = useParams<{ id: string }>();
 
+  const { currentLessonIndex, lessonById } = useAppSelector(
+    (state) => state.lessons,
+  );
+  const lessonIds = useAppSelector(
+    (state) => state.courses.courseById?.lessonIds || [],
+  );
+  const chaptersWithLessons = useAppSelector(
+    (state) => state.courses.courseById?.chaptersWithLessons || [],
+  );
+
   const dispatch = useAppDispatch();
+
+  const onNextLesson = () => dispatch(goToNextLesson());
+  const onPreviousLesson = () => dispatch(goToPreviousLesson());
+  const onCertainLesson = (event: React.SyntheticEvent) => {
+    // @ts-ignore
+    const id = event.target.getAttribute('data-lesson-id');
+    dispatch(goToCertainLesson(id))
+  };
 
   useEffect(() => {
     dispatch(fetchCourseById(id));
   }, []);
 
-  // TODO: Добавить разделение на аудиторию.
+  useEffect(() => {
+    console.log(currentLessonIndex);
+    if (lessonIds.length === 0) return;
 
-  return <ReactMarkdown>{content}</ReactMarkdown>;
+    dispatch(fetchLessonById(String(lessonIds[currentLessonIndex])));
+  }, [lessonIds, currentLessonIndex]);
+
+  if (!lessonById?.content) return <CircularProgress />;
+
+  console.log(chaptersWithLessons);
+
+  const drawer =
+    chaptersWithLessons.length !== 0 ? (
+      <>
+        {chaptersWithLessons.map(
+          ({ position, lessons, title, id: chapterId }) => (
+            <Box key={chapterId} color="white" p={1} pr={2} pl={2}>
+              {`${position}. ${title}`}
+              {lessons.map(({ position, title, id: lessonId }) => (
+                <Box
+                  p={1}
+                  pr={4}
+                  pl={4}
+                  sx={{
+                    '&:hover': {
+                      background: '#333',
+                      cursor: 'pointer',
+                    },
+                  }}
+                  key={lessonId}
+                  data-lesson-id={lessonId}
+                  onClick={onCertainLesson}
+                >
+                  {`${position}. ${title}`}
+                </Box>
+              ))}
+            </Box>
+          ),
+        )}
+      </>
+    ) : null;
+
+  return (
+    <>
+      <Box
+        pl={5}
+        pr={5}
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+        }}
+      >
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', sm: 'block' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth,
+              top: 'auto',
+              backgroundColor: 'black',
+              height: 'calc(100% - 82px)'
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+        <Box>
+          <Typography
+            pt={1}
+            variant="h4"
+            fontWeight="bold"
+          >{`${lessonById.position} ${lessonById.title}`}</Typography>
+          <ReactMarkdown
+            components={{
+              img: MarkdownImage,
+            }}
+          >
+            {lessonById.content}
+          </ReactMarkdown>
+          <Box display="flex" justifyContent="space-between">
+            <IconButton
+              disabled={currentLessonIndex === 0}
+              onClick={onPreviousLesson}
+            >
+              <WestIcon />
+            </IconButton>
+            <IconButton
+              disabled={currentLessonIndex === lessonIds.length - 1}
+              onClick={onNextLesson}
+            >
+              <EastIcon />
+            </IconButton>
+          </Box>
+        </Box>
+      </Box>
+    </>
+  );
 });

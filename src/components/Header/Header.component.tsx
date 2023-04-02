@@ -5,12 +5,12 @@ import styles from './Header.module.css';
 
 export const Header = () => {
   return (
-    <AppBar position="fixed" sx={{ background: 'black' }}>
+    <AppBar position="fixed" sx={{ background: 'black', p: '0 24px' }} >
       <Toolbar>
         <Box
           display="flex"
           alignItems="center"
-          justifyContent="space-evenly"
+          justifyContent="space-between"
           width="100%"
           p="10px 0"
         >
@@ -29,18 +29,20 @@ export const Header = () => {
               EazyLearning.
             </Typography>
           </Link>
-          <Link to="/courses" className={styles.menu}>
-            Курсы
-          </Link>
-          <Link to="/reviews" className={styles.menu}>
-            Отзывы
-          </Link>
-          <Link to="/questions" className={styles.menu}>
-            Вопросы
-          </Link>
-          <Link to="/choosing-computer" className={styles.menu}>
-            Компьютер для занятий
-          </Link>
+          <Box display='flex' gap='15px'>
+            <Link to="/courses" className={styles.menu}>
+              Курсы
+            </Link>
+            <Link to="/reviews" className={styles.menu}>
+              Отзывы
+            </Link>
+            <Link to="/questions" className={styles.menu}>
+              Вопросы
+            </Link>
+            <Link to="/choosing-computer" className={styles.menu}>
+              Компьютер для занятий
+            </Link>
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>
