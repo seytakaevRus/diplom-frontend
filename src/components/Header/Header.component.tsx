@@ -40,9 +40,6 @@ export const Header = memo(() => {
             <Link to="/questions" className={styles.menu}>
               Вопросы
             </Link>
-            <Link to="/choosing-computer" className={styles.menu}>
-              Компьютер для занятий
-            </Link>
           </Box>
         </Box>
       </Toolbar>

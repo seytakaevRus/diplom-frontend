@@ -32,10 +32,6 @@ const routers = createBrowserRouter([
         element: <Questions />,
       },
       {
-        path: '/choosing-computer',
-        element: <ChoosingComputer />,
-      },
-      {
         path: '/courses',
         element: <Courses />,
       },
