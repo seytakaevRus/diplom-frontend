@@ -52,17 +52,17 @@ export const Questions = memo(() => {
         </Typography>
 
         <List
-          sx={{ width: '100%', bgcolor: 'background.paper' }}
+          sx={{ width: '100%', bgcolor: 'background.paper', }}
           component="nav"
         >
-          <ListItemButton onClick={handleClick}>
+          <ListItemButton onClick={handleClick}  sx={{ background: 'rgba(230, 220, 220, 0.2)', marginBottom:'10px'}}>
             <ListItemText primary="Где вы находитесь?" />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List
               component="div"
-              sx={{ background: 'lightGrey' }}
+             
               disablePadding
               subheader={
                 <ListSubheader
@@ -93,15 +93,15 @@ export const Questions = memo(() => {
               </ListItem>
             </List>
           </Collapse>
-          <ListItemButton onClick={handleClick2}>
-            <ListItemText primary="Сколько длятся курсы?" />
+          <ListItemButton onClick={handleClick2}  sx={{ background: 'rgba(230, 220, 220, 0.2)', marginBottom:'10px'}}>
+            <ListItemText primary="Сколько длятся курсы?"  />
             {open2 ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open2} timeout="auto" unmountOnExit>
             <List
               component="div"
               disablePadding
-              sx={{ background: 'lightGrey' }}
+              
             >
               <ListItem sx={{ pl: 4 }}>
                 <ListItemText primary="- студенты могут заниматься с разной скоростью; " />
@@ -111,7 +111,7 @@ export const Questions = memo(() => {
               </ListItem>
             </List>
           </Collapse>
-          <ListItemButton onClick={handleClick3}>
+          <ListItemButton onClick={handleClick3}  sx={{ background: 'rgba(230, 220, 220, 0.2)', marginBottom:'10px'}}>
             <ListItemText primary="Можно ли отменить или перенести урок?" />
             {open3 ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
@@ -119,37 +119,19 @@ export const Questions = memo(() => {
             <List
               component="div"
               disablePadding
-              sx={{ background: 'lightGrey' }}
+            
             >
               <ListItem sx={{ pl: 4 }}>
                 <ListItemText primary="Да. Так как вы сами проходите курс - ограничений по времени нет! " />
               </ListItem>
             </List>
           </Collapse>
-          <ListItemButton onClick={handleClick4}>
+          <ListItemButton onClick={handleClick4}  sx={{ background: 'rgba(230, 220, 220, 0.2)',marginBottom:'10px' }}>
             <ListItemText primary="Как выбрать комьпьютер для занятий?" />
             {open4 ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open4} timeout="auto" unmountOnExit>
-          <Typography
-              component="h1"
-              variant="h4"
-              sx={{ margin: 10, alignItems: 'center' }}
-            >
-              Выбор компьютера для занятий
-            </Typography>
-            <Typography sx={{ paddingBottom: '5px' }}>
-              В этой статье мы разберемся с таким сложным вопросом, как выбор
-              компьютера для учебы в нашей школе. Стоит сразу отметить, что
-              выбранный компьютер подойдет не только для прохождения наших
-              увлекательных курсов, но и удовлетворит большинство требований и
-              запросов современного ребёнка и взрослого, будь то задачи,
-              связанные с учебой или работой.
-            </Typography>
-            <Typography sx={{ paddingBottom: 5 }}>
-              Сперва следует определиться, что будет лучше для нас, ноутбук или
-              же стационарный компьютер. Разберем их особенности более подробно.
-            </Typography>
+        
             <Typography variant="h4" sx={{ margin: 5 }}>
               Стационарный компьютер
             </Typography>

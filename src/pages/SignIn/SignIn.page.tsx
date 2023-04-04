@@ -37,7 +37,7 @@ export const SignInPage = memo(() => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate('/');
+      navigate('/courses');
     }
   }, [userInfo]);
 
