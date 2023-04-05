@@ -4,7 +4,8 @@ export const MarkdownImage = memo((props) => (
   <img
     {...props}
     style={{
-      width: '300px',
+      height: 'auto',
+      maxWidth: '100%'
     }}
     alt="something"
   />

@@ -29,7 +29,12 @@ export const SignInPage = memo(() => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<SignInInput>();
+  } = useForm<SignInInput>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
   const onSubmit = (data: SignInInput) => {
     dispatch(loginUser(data));
@@ -97,7 +102,7 @@ export const SignInPage = memo(() => {
               errorMessage={errors.password?.message}
               isError={errors.password ? true : false}
             />
-            
+
             <Button
               type="submit"
               fullWidth

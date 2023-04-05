@@ -15,7 +15,7 @@ export const Courses = memo(() => {
   // TODO: Добавить разделение на аудиторию.
 
   return courseArray.map(({ id, audience, title }) => (
-    <div>
+    <div key={id}>
       <p>Id: {id}</p>
       <p>Title: {title}</p>
       <p>Audience: {audience}</p>

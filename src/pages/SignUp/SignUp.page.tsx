@@ -30,7 +30,15 @@ export const SignUpPage = memo(() => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpInput>();
+  } = useForm<SignUpInput>({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      'email': '',
+      password: '',
+      passwordConfirm: '',
+    }
+  });
 
   const onSubmit = (data: SignUpInput) => {
     dispatch(registerUser(data));
