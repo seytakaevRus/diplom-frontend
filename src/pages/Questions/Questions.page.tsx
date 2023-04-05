@@ -6,7 +6,6 @@ import {
   ThemeProvider,
   List,
   ListItem,
-  ListSubheader,
   ListItemButton,
   ListItemText,
   Collapse,
@@ -44,47 +43,49 @@ export const Questions = memo(() => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          textIndent: '30px'
         }}
       >
-        <Typography component="h1" variant="h4" sx={{paddingBottom:"60px"}}>
+        <Typography component="h1" variant="h4" sx={{ paddingBottom: '60px' }}>
           Часто задаваемые вопросы
         </Typography>
 
         <List
-          sx={{ width: '100%', bgcolor: 'background.paper', }}
+          sx={{ width: '100%', bgcolor: 'background.paper' }}
           component="nav"
         >
-          <ListItemButton onClick={handleClick}  sx={{ marginBottom:'10px'}}>
+          <ListItemButton
+            onClick={handleClick}
+            sx={{
+              background: 'rgba(230, 220, 220, 0.2)',
+              marginBottom: '10px',
+            }}
+          >
             <ListItemText primary="Где вы находитесь?" />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List
               component="div"
-             
               disablePadding
               subheader={
-                <ListSubheader
-                  component="div"
-                  id="nested-list-subheader"
-                  sx={{ lineHeight: '24px' }}
-                >
+                <Typography sx={{ paddingBottom: '5px' }}>
                   У нас онлайн-школа с индивидуальными уроками, мы работаем
                   везде, где есть интернет. Это лучше, чем обычные занятия,
                   потому что:
-                </ListSubheader>
+                </Typography>
               }
             >
-              <ListItem sx={{ pl: 4 }}>
+              <ListItem>
                 <ListItemText primary="- студент не отвлекается на разговоры или игры с другими ребятами" />
               </ListItem>
-              <ListItem sx={{ pl: 4 }}>
+              <ListItem>
                 <ListItemText
                   primary="- не надо ждать или догонять других студентов, можно учиться со скоростью, которая комфортна
                         именно студенту;"
                 />
               </ListItem>
-              <ListItem sx={{ pl: 4 }}>
+              <ListItem>
                 <ListItemText
                   primary="- индивидуальное расписание, а если пропустили урок, то продолжаете ровно с того места, где
                         закончили в последний раз."
@@ -92,45 +93,54 @@ export const Questions = memo(() => {
               </ListItem>
             </List>
           </Collapse>
-          <ListItemButton onClick={handleClick2}  sx={{ background: 'rgba(230, 220, 220, 0.2)', marginBottom:'10px'}}>
-            <ListItemText primary="Сколько длятся курсы?"  />
+          <ListItemButton
+            onClick={handleClick2}
+            sx={{
+              background: 'rgba(230, 220, 220, 0.2)',
+              marginBottom: '10px',
+            }}
+          >
+            <ListItemText primary="Сколько длятся курсы?" />
             {open2 ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open2} timeout="auto" unmountOnExit>
-            <List
-              component="div"
-              disablePadding
-              
-            >
-              <ListItem sx={{ pl: 4 }}>
+            <List component="div" disablePadding>
+              <ListItem>
                 <ListItemText primary="- студенты могут заниматься с разной скоростью; " />
               </ListItem>
-              <ListItem sx={{ pl: 4 }}>
+              <ListItem>
                 <ListItemText primary="- кто-то занимается 1 раз в неделю, кто-то 2, а кто-то 3 раза в неделю;" />
               </ListItem>
             </List>
           </Collapse>
-          <ListItemButton onClick={handleClick3}  sx={{ background: 'rgba(230, 220, 220, 0.2)', marginBottom:'10px'}}>
+          <ListItemButton
+            onClick={handleClick3}
+            sx={{
+              background: 'rgba(230, 220, 220, 0.2)',
+              marginBottom: '10px',
+            }}
+          >
             <ListItemText primary="Можно ли отменить или перенести урок?" />
             {open3 ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open3} timeout="auto" unmountOnExit>
-            <List
-              component="div"
-              disablePadding
-            
-            >
-              <ListItem sx={{ pl: 4 }}>
+            <List component="div" disablePadding>
+              <ListItem>
                 <ListItemText primary="Да. Так как вы сами проходите курс - ограничений по времени нет! " />
               </ListItem>
             </List>
           </Collapse>
-          <ListItemButton onClick={handleClick4}  sx={{ background: 'rgba(230, 220, 220, 0.2)',marginBottom:'10px' }}>
-            <ListItemText primary="Как выбрать комьпьютер для занятий?" />
+          <ListItemButton
+            onClick={handleClick4}
+            sx={{
+              background: 'rgba(230, 220, 220, 0.2)',
+              marginBottom: '10px',
+            }}
+          >
+            <ListItemText primary="Как выбрать компьютер для занятий?" />
             {open4 ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open4} timeout="auto" unmountOnExit>
-        
             <Typography variant="h5" sx={{ margin: 5 }}>
               Стационарный компьютер
             </Typography>
