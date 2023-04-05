@@ -6,7 +6,6 @@ import { CssBaseline } from '@mui/material';
 
 import { App } from './App';
 import { Reviews } from './pages/ Reviews';
-import { ChoosingComputer } from './pages/ChoosingComputer';
 import { CourseById } from './pages/CourseById';
 import { Courses } from './pages/Courses';
 import { Error404Page } from './pages/Error404';
@@ -29,10 +28,6 @@ const routers = createBrowserRouter([
       {
         path: '/questions',
         element: <Questions />,
-      },
-      {
-        path: '/choosing-computer',
-        element: <ChoosingComputer />,
       },
       {
         path: '/courses',
