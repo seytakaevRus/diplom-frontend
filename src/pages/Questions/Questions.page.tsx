@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import {
   Box,
   Typography,
-  Container,
   createTheme,
   ThemeProvider,
   List,
@@ -55,7 +54,7 @@ export const Questions = memo(() => {
           sx={{ width: '100%', bgcolor: 'background.paper', }}
           component="nav"
         >
-          <ListItemButton onClick={handleClick}  sx={{ background: 'rgba(230, 220, 220, 0.2)', marginBottom:'10px'}}>
+          <ListItemButton onClick={handleClick}  sx={{ marginBottom:'10px'}}>
             <ListItemText primary="Где вы находитесь?" />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
