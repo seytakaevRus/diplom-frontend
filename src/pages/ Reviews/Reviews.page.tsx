@@ -85,9 +85,11 @@ export const Reviews = memo(() => {
                     render={({ field }) => (
                       <>
                         <Select {...field} label="Выбрать курс">
-                          {courseArray.map(({id, title}) => 
-                             <MenuItem key={id} value={title}>{title}</MenuItem>
-                          )}
+                          {courseArray.map(({ id, title }) => (
+                            <MenuItem key={id} value={title}>
+                              {title}
+                            </MenuItem>
+                          ))}
                         </Select>
                         <FormHelperText>
                           {errors.course?.message}
