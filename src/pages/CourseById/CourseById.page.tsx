@@ -65,26 +65,42 @@ export const CourseById = memo(() => {
       <>
         {chaptersWithLessons.map(
           ({ position, lessons, title, id: chapterId }) => (
-            <Box key={chapterId} color="white" p={1} pr={2} pl={2}>
+            <Box key={chapterId} color="white" p={1}>
               {`${position}. ${title}`}
-              {lessons.map(({ position, title, id: lessonId }) => (
-                <Box
-                  p={1}
-                  pr={4}
-                  pl={4}
-                  sx={{
-                    '&:hover': {
-                      background: '#333',
-                      cursor: 'pointer',
-                    },
-                  }}
-                  key={lessonId}
-                  data-lesson-id={lessonId}
-                  onClick={onCertainLesson}
-                >
-                  {`${position}. ${title}`}
-                </Box>
-              ))}
+              {lessons.map(({ position, title, id: lessonId }) => {
+                const lessonBoxStyles: {
+                  background: string;
+                  '&:hover': {
+                    background?: string;
+                    cursor: string;
+                  };
+                } = {
+                  background: 'none',
+                  '&:hover': {
+                    background: '#333',
+                    cursor: 'pointer',
+                  },
+                };
+
+                if (lessonId === lessonById.id) {
+                  lessonBoxStyles.background = 'rgba(102,204,102,.5)';
+                  lessonBoxStyles['&:hover'].background = 'rgba(102,204,102,.5)';
+                }
+
+                return (
+                  <Box
+                    p={1}
+                    pr={2}
+                    pl={2}
+                    sx={lessonBoxStyles}
+                    key={lessonId}
+                    data-lesson-id={lessonId}
+                    onClick={onCertainLesson}
+                  >
+                    {`${position}. ${title}`}
+                  </Box>
+                );
+              })}
             </Box>
           ),
         )}
