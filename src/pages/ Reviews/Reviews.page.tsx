@@ -8,7 +8,7 @@ import {
   ThemeProvider,
   FormControl,
   InputLabel,
-  Select,
+  // Select,
   MenuItem,
   Rating,
   FormHelperText,
@@ -19,6 +19,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { TextField } from '../../components/TextField';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchCourses } from '../../store/apis/courses';
+import { Select } from '../../components/Select';
 
 interface ReviewsInput {
   course: string;
@@ -74,30 +75,17 @@ export const Reviews = memo(() => {
               onSubmit={handleSubmit(onSubmit)}
             >
               <Box sx={{ minWidth: 520 }}>
-                <FormControl fullWidth error={errors.course ? true : false}>
-                  <InputLabel>Выбрать курс</InputLabel>
-                  <Controller
-                    name="course"
-                    control={control}
-                    rules={{
-                      required: 'Поле не может быть пустым',
-                    }}
-                    render={({ field }) => (
-                      <>
-                        <Select {...field} label="Выбрать курс">
-                          {courseArray.map(({ id, title }) => (
-                            <MenuItem key={id} value={title}>
-                              {title}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                        <FormHelperText>
-                          {errors.course?.message}
-                        </FormHelperText>
-                      </>
-                    )}
-                  />
-                </FormControl>
+                <Select
+                  name="course"
+                  control={control}
+                  rules={{
+                    required: 'Поле не может быть пустым',
+                  }}
+                  isError={errors.course ? true : false}
+                  errorMessage={errors.course?.message}
+                  items={courseArray}
+                  label='Введите курс'
+                />
               </Box>
               <Box>
                 <TextField

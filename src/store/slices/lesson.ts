@@ -1,34 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { LessonInfoType } from '../../types/lesson-info';
-import { fetchLessonById } from '../apis/lessons';
+import { fetchLessonById } from '../apis/lesson';
 
-export interface LessonsSliceState {
+interface LessonSliceState {
   loading: boolean;
   error: string | null;
-  lessonById: LessonInfoType | null;
-  currentLessonIndex: number;
+  data: LessonInfoType | null;
+  lessonIdsIndex: number;
 }
 
-const initialState: LessonsSliceState = {
+const initialState: LessonSliceState = {
   loading: false,
   error: null,
-  lessonById: null,
-  currentLessonIndex: 0,
+  data: null,
+  lessonIdsIndex: 0,
 };
 
-export const lessonsSlice = createSlice({
-  name: 'lessons',
+export const lessonSlice = createSlice({
+  name: 'lesson',
   initialState,
   reducers: {
     goToNextLesson(state) {
-      state.currentLessonIndex += 1;
+      state.lessonIdsIndex += 1;
     },
     goToPreviousLesson(state) {
-      state.currentLessonIndex -= 1;
+      state.lessonIdsIndex -= 1;
     },
     goToCertainLesson(state, { payload }) {
-      state.currentLessonIndex = payload - 1;
+      console.log(payload)
+      state.lessonIdsIndex = payload;
     }
   },
   extraReducers(builder) {
@@ -39,7 +40,7 @@ export const lessonsSlice = createSlice({
     builder.addCase(fetchLessonById.fulfilled, (state, { payload }) => {
       if (payload) {
         state.loading = false;
-        state.lessonById = payload;
+        state.data = payload;
       }
     });
     builder.addCase(fetchLessonById.rejected, (state, { payload }) => {
@@ -51,6 +52,6 @@ export const lessonsSlice = createSlice({
   },
 });
 
-export const { goToNextLesson, goToPreviousLesson, goToCertainLesson } = lessonsSlice.actions
+export const { goToNextLesson, goToPreviousLesson, goToCertainLesson } = lessonSlice.actions
 
-export default lessonsSlice.reducer;
+export default lessonSlice.reducer;

@@ -30,7 +30,7 @@ export const Header = memo(() => {
               EazyLearning.
             </Typography>
           </Link>
-          <Box display="flex" gap="15px">
+          <Box display="flex" gap="100px">
             <Link to="/courses" className={styles.menu}>
               Курсы
             </Link>

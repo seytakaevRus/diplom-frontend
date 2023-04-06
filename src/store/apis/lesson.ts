@@ -8,7 +8,10 @@ export const fetchLessonById = createAsyncThunk(
   'fetchLessonById',
   async (id: string | undefined, { rejectWithValue }) => {
     try {
+      console.log('fetchLessonById: ', id);
       if (!id) return;
+
+      
 
       const { data } = await instance.get<LessonInfoType>(`/lessons/${id}`);
       return data;

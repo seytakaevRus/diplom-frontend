@@ -14,12 +14,12 @@ import remarkGfm from 'remark-gfm';
 
 import { MarkdownImage } from '../../components/MarkdownImage';
 import { fetchCourseById } from '../../store/apis/courses';
-import { fetchLessonById } from '../../store/apis/lessons';
+import { fetchLessonById } from '../../store/apis/lesson';
 import {
   goToCertainLesson,
   goToNextLesson,
   goToPreviousLesson,
-} from '../../store/slices/lessons';
+} from '../../store/slices/lesson';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 const drawerWidth = 300;
@@ -27,8 +27,8 @@ const drawerWidth = 300;
 export const CourseById = memo(() => {
   const { id } = useParams<{ id: string }>();
 
-  const { currentLessonIndex, lessonById } = useAppSelector(
-    (state) => state.lessons,
+  const { lessonIdsIndex, data } = useAppSelector(
+    (state) => state.lesson,
   );
   const lessonIds = useAppSelector(
     (state) => state.courses.courseById?.lessonIds || [],
@@ -45,20 +45,23 @@ export const CourseById = memo(() => {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     const id = event.currentTarget.getAttribute('data-lesson-id');
-    dispatch(goToCertainLesson(id));
+    const indexInLessonsArray = lessonIds.findIndex((lessonId) => String(lessonId) === id);
+    
+    dispatch(goToCertainLesson(indexInLessonsArray));
   };
 
   useEffect(() => {
     dispatch(fetchCourseById(id));
+    console.log('Загружаем курс')
   }, []);
 
   useEffect(() => {
     if (lessonIds.length === 0) return;
 
-    dispatch(fetchLessonById(String(lessonIds[currentLessonIndex])));
-  }, [lessonIds, currentLessonIndex]);
+    dispatch(fetchLessonById(String(lessonIds[lessonIdsIndex])));
+  }, [lessonIds, lessonIdsIndex]);
 
-  if (!lessonById?.content) return <CircularProgress />;
+  if (!data?.content) return <CircularProgress />;
 
   const drawer =
     chaptersWithLessons.length !== 0 ? (
@@ -82,7 +85,7 @@ export const CourseById = memo(() => {
                   },
                 };
 
-                if (lessonId === lessonById.id) {
+                if (lessonId === data.id) {
                   lessonBoxStyles.background = 'rgba(102,204,102,.5)';
                   lessonBoxStyles['&:hover'].background = 'rgba(102,204,102,.5)';
                 }
@@ -90,8 +93,8 @@ export const CourseById = memo(() => {
                 return (
                   <Box
                     p={1}
-                    pr={2}
-                    pl={2}
+                    pr={3}
+                    pl={3}
                     sx={lessonBoxStyles}
                     key={lessonId}
                     data-lesson-id={lessonId}
@@ -138,24 +141,24 @@ export const CourseById = memo(() => {
           pt={1}
           variant="h4"
           fontWeight="bold"
-        >{`${lessonById.position} ${lessonById.title}`}</Typography>
+        >{`${data.position} ${data.title}`}</Typography>
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
             img: MarkdownImage,
           }}
         >
-          {lessonById.content}
+          {data.content}
         </ReactMarkdown>
         <Box display="flex" justifyContent="space-between">
           <IconButton
-            disabled={currentLessonIndex === 0}
+            disabled={lessonIdsIndex === 0}
             onClick={onPreviousLesson}
           >
             <WestIcon />
           </IconButton>
           <IconButton
-            disabled={currentLessonIndex === lessonIds.length - 1}
+            disabled={lessonIdsIndex === lessonIds.length - 1}
             onClick={onNextLesson}
           >
             <EastIcon />

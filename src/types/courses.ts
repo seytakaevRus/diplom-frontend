@@ -3,6 +3,8 @@ const audienceType = {
   teenager: 'teenager',
 } as const;
 
+export type AudienceType = keyof typeof audienceType;
+
 interface ChapterWithLessons {
   id: number;
   title: string;
