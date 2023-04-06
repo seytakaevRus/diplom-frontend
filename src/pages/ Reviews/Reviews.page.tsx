@@ -6,12 +6,7 @@ import {
   Container,
   createTheme,
   ThemeProvider,
-  FormControl,
-  InputLabel,
-  // Select,
-  MenuItem,
   Rating,
-  FormHelperText,
 } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { Controller, useForm } from 'react-hook-form';
@@ -54,12 +49,11 @@ export const Reviews = memo(() => {
   };
 
   return (
-    <Box>
+    <Box sx={{ paddingTop: 20 }}>
       <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs" sx={{ marginTop: 20 }}>
+        <Container component="main" maxWidth="xs">
           <Box
             sx={{
-              marginTop: 8,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -84,7 +78,8 @@ export const Reviews = memo(() => {
                   isError={errors.course ? true : false}
                   errorMessage={errors.course?.message}
                   items={courseArray}
-                  label='Введите курс'
+                  label="Введите курс"
+                  fullWidth
                 />
               </Box>
               <Box>

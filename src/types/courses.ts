@@ -20,6 +20,7 @@ export interface CourseType {
   id: number;
   title: string;
   audience: keyof typeof audienceType;
+  slug: string;
 }
 
 export type CourseInfoType = CourseType & {
