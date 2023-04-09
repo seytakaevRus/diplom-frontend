@@ -44,7 +44,7 @@ export const Courses = memo(() => {
   return (
     <Box sx={{ paddingTop: 20 }}>
       <Container component="main" maxWidth="md">
-        <Box display="flex" flexDirection="column" flexWrap="wrap" gap="20px">
+        <Box display="grid" gridTemplateRows="min-content min-content" gap="20px">
           <Select
             name="audience"
             label="Выбрать категорию"
@@ -52,31 +52,40 @@ export const Courses = memo(() => {
             control={control}
             fullWidth
           />
-          {courseArray.map(({ id, title }) => (
-            <Card key={id}>
-              <CardMedia sx={{ height: '100% ' }} image="" component="img" />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {title}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button
+          <Box  display="grid" gridTemplateColumns="1fr 1fr" gap="20px">
+            {courseArray.map(({ id, title, cover }) => (
+              <Box key={id} display='grid' gap='10px' gridTemplateRows='1fr 40px 40px'>
+                <CardMedia
+                  image={cover}
+                  component="img"
                   sx={{
-                    background: 'black',
-                    color: 'white',
-                    '&:hover': {
-                      color: 'black',
-                    },
+                    maxWidth: '100%',
+                    height: '100%'
                   }}
-                >
-                  <Link to={`/courses/${id}`} style={linkStyle}>
-                    Перейти к курсу
-                  </Link>
-                </Button>
-              </CardActions>
-            </Card>
-          ))}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {title}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    sx={{
+                      background: 'black',
+                      color: 'white',
+                      '&:hover': {
+                        color: 'black',
+                      },
+                    }}
+                  >
+                    <Link to={`/courses/${id}`} style={linkStyle}>
+                      Перейти к курсу
+                    </Link>
+                  </Button>
+                </CardActions>
+              </Box>
+            ))}
+          </Box>
         </Box>
       </Container>
     </Box>

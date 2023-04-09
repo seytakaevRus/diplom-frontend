@@ -12,13 +12,14 @@ import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';
 import remarkGfm from 'remark-gfm';
 
-import { MarkdownImage } from '../../components/MarkdownImage';
+import { MarkdownMedia } from '../../components/MarkdownMedia';
 import { fetchCourseById } from '../../store/apis/courses';
 import { fetchLessonById } from '../../store/apis/lesson';
 import {
   goToCertainLesson,
   goToNextLesson,
   goToPreviousLesson,
+  resetLessonIdsIndex,
 } from '../../store/slices/lesson';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
@@ -27,9 +28,7 @@ const drawerWidth = 300;
 export const CourseById = memo(() => {
   const { id } = useParams<{ id: string }>();
 
-  const { lessonIdsIndex, data } = useAppSelector(
-    (state) => state.lesson,
-  );
+  const { lessonIdsIndex, data } = useAppSelector((state) => state.lesson);
   const lessonIds = useAppSelector(
     (state) => state.courses.courseById?.lessonIds || [],
   );
@@ -45,14 +44,16 @@ export const CourseById = memo(() => {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     const id = event.currentTarget.getAttribute('data-lesson-id');
-    const indexInLessonsArray = lessonIds.findIndex((lessonId) => String(lessonId) === id);
-    
+    const indexInLessonsArray = lessonIds.findIndex(
+      (lessonId) => String(lessonId) === id,
+    );
+
     dispatch(goToCertainLesson(indexInLessonsArray));
   };
 
   useEffect(() => {
     dispatch(fetchCourseById(id));
-    console.log('Загружаем курс')
+    dispatch(resetLessonIdsIndex());
   }, []);
 
   useEffect(() => {
@@ -87,7 +88,8 @@ export const CourseById = memo(() => {
 
                 if (lessonId === data.id) {
                   lessonBoxStyles.background = 'rgba(102,204,102,.5)';
-                  lessonBoxStyles['&:hover'].background = 'rgba(102,204,102,.5)';
+                  lessonBoxStyles['&:hover'].background =
+                    'rgba(102,204,102,.5)';
                 }
 
                 return (
@@ -145,7 +147,7 @@ export const CourseById = memo(() => {
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
-            img: MarkdownImage,
+            img: MarkdownMedia,
           }}
         >
           {data.content}

@@ -8,7 +8,6 @@ export const fetchLessonById = createAsyncThunk(
   'fetchLessonById',
   async (id: string | undefined, { rejectWithValue }) => {
     try {
-      console.log('fetchLessonById: ', id);
       if (!id) return;
 
       

@@ -28,8 +28,10 @@ export const lessonSlice = createSlice({
       state.lessonIdsIndex -= 1;
     },
     goToCertainLesson(state, { payload }) {
-      console.log(payload)
       state.lessonIdsIndex = payload;
+    },
+    resetLessonIdsIndex(state) {
+      state.lessonIdsIndex = 0;
     }
   },
   extraReducers(builder) {
@@ -52,6 +54,6 @@ export const lessonSlice = createSlice({
   },
 });
 
-export const { goToNextLesson, goToPreviousLesson, goToCertainLesson } = lessonSlice.actions
+export const { goToNextLesson, goToPreviousLesson, goToCertainLesson, resetLessonIdsIndex } = lessonSlice.actions
 
 export default lessonSlice.reducer;

@@ -21,6 +21,7 @@ export interface CourseType {
   title: string;
   audience: keyof typeof audienceType;
   slug: string;
+  cover: string;
 }
 
 export type CourseInfoType = CourseType & {
