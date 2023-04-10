@@ -10,8 +10,6 @@ export const fetchLessonById = createAsyncThunk(
     try {
       if (!id) return;
 
-      
-
       const { data } = await instance.get<LessonInfoType>(`/lessons/${id}`);
       return data;
     } catch (error) {

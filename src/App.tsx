@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 import { Header } from './components/Header';
 import { fetchUser } from './store/apis/auth';
+import { fetchCourses } from './store/apis/courses';
 import { useAppDispatch } from './store/hooks';
 
 export const App = memo(() => {
@@ -11,12 +12,13 @@ export const App = memo(() => {
 
   useEffect(() => {
     dispatch(fetchUser());
+    dispatch(fetchCourses());
   }, []);
 
   return (
     <>
       <Header />
-      <Box paddingTop="82px" >
+      <Box paddingTop="82px" height="100%" display="grid" alignItems="center">
         <Outlet />
       </Box>
     </>

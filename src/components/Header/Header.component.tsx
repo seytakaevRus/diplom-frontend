@@ -15,7 +15,7 @@ export const Header = memo(() => {
           width="100%"
           p="10px 0"
         >
-          <Link to="/courses" className={styles.link}>
+          <Link to="/courses" className={styles.logo}>
             <Typography
               variant="h6"
               sx={{
@@ -36,13 +36,10 @@ export const Header = memo(() => {
               lg: '100px'
             }
           }}>
-            <Link to="/courses" className={styles.menu}>
+            <Link to="/courses" className={styles.link}>
               Курсы
             </Link>
-            <Link to="/reviews" className={styles.menu}>
-              Отзывы
-            </Link>
-            <Link to="/questions" className={styles.menu}>
+            <Link to="/questions" className={styles.link}>
               Вопросы
             </Link>
           </Box>

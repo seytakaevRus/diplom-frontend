@@ -2,27 +2,20 @@ import React, { memo, useEffect } from 'react';
 import {
   Button,
   Box,
-  Typography,
   Container,
-  createTheme,
-  ThemeProvider,
   Rating,
+  Typography,
+  Card,
 } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { Controller, useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
-import { TextField } from '../../components/TextField';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchCourses } from '../../store/apis/courses';
-import { Select } from '../../components/Select';
+import { createReview, getReviewsByCourseId } from '../../store/apis/reviews';
 
-interface ReviewsInput {
-  course: string;
-  rating: number;
-  review: string;
-}
-
-const theme = createTheme();
+import { ReviewsInput } from './Reviews.type';
+import { TextField } from '../../components/TextField';
 
 export const Reviews = memo(() => {
   const {
@@ -31,107 +24,102 @@ export const Reviews = memo(() => {
     control,
   } = useForm<ReviewsInput>({
     defaultValues: {
-      course: '',
       rating: 5,
       review: '',
     },
   });
 
-  const { courseArray } = useAppSelector((state) => state.courses);
+  const { id } = useParams<{ id: string }>();
+
   const dispatch = useAppDispatch();
+  const reviews = useAppSelector((state) => state.reviews.reviewArray);
 
   useEffect(() => {
-    dispatch(fetchCourses());
+    dispatch(getReviewsByCourseId(id));
   }, []);
 
   const onSubmit = (data: ReviewsInput) => {
-    console.log(data);
+    dispatch(createReview({ ...data, courseId: id }));
   };
 
   return (
-    <Box sx={{ paddingTop: 20 }}>
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Typography component="h1" variant="h4">
-              Добавить отзыв о курсе
+    <Container component="main" fixed>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          width="100%"
+          display="grid"
+          gap="20px"
+        >
+          {reviews.length !== 0 ? (
+            reviews.map(({ userFullName, id, review, rating }) => (
+              <Card variant="outlined" key={id}>
+                <Box
+                  p={1}
+                  display="grid"
+                  gridTemplateRows="min-content 1fr"
+                  gridTemplateColumns="1fr min-content"
+                >
+                  <Typography variant="h6" gridColumn="1 / 3">
+                    {userFullName}
+                  </Typography>
+                  <Typography variant="body1">{review}</Typography>
+                  <Rating value={rating} readOnly />
+                </Box>
+              </Card>
+            ))
+          ) : (
+            <Typography variant="h5">
+              Отзывов пока нет, будьте первыми
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              sx={{ mt: 1 }}
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <Box sx={{ minWidth: 520 }}>
-                <Select
-                  name="course"
-                  control={control}
-                  rules={{
-                    required: 'Поле не может быть пустым',
-                  }}
-                  isError={errors.course ? true : false}
-                  errorMessage={errors.course?.message}
-                  items={courseArray}
-                  label="Введите курс"
-                  fullWidth
+          )}
+          <TextField
+            name="review"
+            control={control}
+            isError={errors.review ? true : false}
+            errorMessage={errors.review?.message}
+            multiline
+            label="Отзыв"
+            rules={{
+              required: 'Поле не может быть пустым',
+            }}
+          />
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Button type="submit" variant="contained" sx={{ pt: 1, pb: 1 }}>
+              Отправить
+            </Button>
+            <Controller
+              name="rating"
+              control={control}
+              render={({ field: { onBlur, onChange, value } }) => (
+                <Rating
+                  onBlur={onBlur}
+                  onChange={(event: any) =>
+                    onChange(Number(event.target.value))
+                  }
+                  value={Number(value)}
+                  precision={1}
+                  emptyIcon={
+                    <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+                  }
                 />
-              </Box>
-              <Box>
-                <TextField
-                  name="review"
-                  control={control}
-                  isError={errors.review ? true : false}
-                  errorMessage={errors.review?.message}
-                  multiline
-                  label="Отзыв"
-                  rules={{
-                    required: 'Поле не может быть пустым',
-                  }}
-                />
-              </Box>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Typography>Установите рейтинг курса:</Typography>
-                <Controller
-                  name="rating"
-                  control={control}
-                  render={({ field: { onBlur, onChange, value } }) => (
-                    <Rating
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      value={Number(value)}
-                      precision={1}
-                      emptyIcon={
-                        <StarIcon
-                          style={{ opacity: 0.55 }}
-                          fontSize="inherit"
-                        />
-                      }
-                    />
-                  )}
-                />
-              </Box>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{ mt: 3, mb: 2, pt: 1, pb: 1 }}
-                fullWidth
-              >
-                Отправить
-              </Button>
-            </Box>
+              )}
+            />
           </Box>
-        </Container>
-      </ThemeProvider>
-    </Box>
+        </Box>
+      </Box>
+    </Container>
   );
 });

@@ -5,8 +5,6 @@ import {
   Box,
   Typography,
   Container,
-  createTheme,
-  ThemeProvider,
   Alert,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
@@ -17,8 +15,6 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { loginUser } from '../../store/apis/auth';
 import { selectAuthData } from '../../store/slices/auth';
 import { TextField } from '../../components/TextField';
-
-const theme = createTheme();
 
 export const SignInPage = memo(() => {
   const { userInfo, error } = useAppSelector(selectAuthData);
@@ -47,7 +43,7 @@ export const SignInPage = memo(() => {
   }, [userInfo]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       {error && <Alert severity="error">{error}</Alert>}
       <Container component="main" maxWidth="xs">
         <Box
@@ -119,6 +115,6 @@ export const SignInPage = memo(() => {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </>
   );
 });

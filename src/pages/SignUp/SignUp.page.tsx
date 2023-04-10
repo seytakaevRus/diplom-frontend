@@ -1,14 +1,5 @@
 import { memo, useEffect } from 'react';
-import {
-  Button,
-  Grid,
-  Box,
-  Typography,
-  Container,
-  createTheme,
-  ThemeProvider,
-  Alert,
-} from '@mui/material';
+import { Button, Grid, Box, Typography, Container, Alert } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -18,8 +9,6 @@ import { selectAuthData } from '../../store/slices/auth';
 
 import { SignUpInput } from './SignUp.type';
 import { TextField } from '../../components/TextField';
-
-const theme = createTheme();
 
 export const SignUpPage = memo(() => {
   const { userInfo, error } = useAppSelector(selectAuthData);
@@ -34,10 +23,10 @@ export const SignUpPage = memo(() => {
     defaultValues: {
       firstName: '',
       lastName: '',
-      'email': '',
+      email: '',
       password: '',
       passwordConfirm: '',
-    }
+    },
   });
 
   const onSubmit = (data: SignUpInput) => {
@@ -51,7 +40,7 @@ export const SignUpPage = memo(() => {
   }, [userInfo]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       {error && <Alert severity="error">{error}</Alert>}
       <Container component="main" maxWidth="xs">
         <Box
@@ -130,7 +119,7 @@ export const SignUpPage = memo(() => {
                 },
               }}
               label="Пароль"
-              type='password'
+              type="password"
               name="password"
               control={control}
               isError={errors.password ? true : false}
@@ -168,6 +157,6 @@ export const SignUpPage = memo(() => {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </>
   );
 });

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import {
   Box,
   Button,
-  Card,
   CardActions,
   CardContent,
   CardMedia,
@@ -12,8 +11,7 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
-import { fetchCourses } from '../../store/apis/courses';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 import { AudienceType } from '../../types/courses';
 import { Select } from '../../components/Select';
 import { audienceItems } from '../../constants/audience';
@@ -23,7 +21,6 @@ interface CoursesInput {
 }
 
 export const Courses = memo(() => {
-  const dispatch = useAppDispatch();
   const { courseArray } = useAppSelector((state) => state.courses);
 
   const { control } = useForm<CoursesInput>({
@@ -37,13 +34,9 @@ export const Courses = memo(() => {
     color: 'white',
   };
 
-  useEffect(() => {
-    dispatch(fetchCourses());
-  }, []);
-
   return (
     <Box sx={{ paddingTop: 20 }}>
-      <Container component="main" maxWidth="md">
+      <Container component="main" fixed>
         <Box display="grid" gridTemplateRows="min-content min-content" gap="20px">
           <Select
             name="audience"

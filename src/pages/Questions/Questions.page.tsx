@@ -2,17 +2,14 @@ import React, { memo } from 'react';
 import {
   Box,
   Typography,
-  createTheme,
-  ThemeProvider,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   Collapse,
+  Container,
 } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-
-const theme = createTheme();
 
 export const Questions = memo(() => {
   const [open, setOpen] = React.useState(false);
@@ -34,19 +31,17 @@ export const Questions = memo(() => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <Container fixed component="main">
       <Box
         sx={{
-          paddingTop: 20,
-          paddingLeft: 5,
-          paddingRight: 5,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          textIndent: '30px'
+          textIndent: '30px',
+          gap: '20px',
         }}
       >
-        <Typography component="h1" variant="h4" sx={{ paddingBottom: '60px' }}>
+        <Typography component="h1" variant="h4">
           Часто задаваемые вопросы
         </Typography>
 
@@ -221,6 +216,6 @@ export const Questions = memo(() => {
           </Collapse>
         </List>
       </Box>
-    </ThemeProvider>
+    </Container>
   );
 });

@@ -1,7 +1,11 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 
 import { App } from './App';
@@ -19,11 +23,11 @@ const routers = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    // errorElement: <Error404Page />,
+    errorElement: <Error404Page />,
     children: [
       {
         path: '/',
-        element: <Navigate to='/courses'/>,
+        element: <Navigate to="/courses" />,
       },
       {
         path: '/questions',
@@ -38,7 +42,7 @@ const routers = createBrowserRouter([
         element: <CourseById />,
       },
       {
-        path: '/reviews',
+        path: '/courses/:id/reviews',
         element: <Reviews />,
       },
     ],
