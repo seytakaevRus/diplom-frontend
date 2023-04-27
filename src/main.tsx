@@ -17,6 +17,7 @@ import { Questions } from './pages/Questions';
 import { SignInPage } from './pages/SignIn';
 import { SignUpPage } from './pages/SignUp';
 import { store } from './store/store';
+import { Test } from './pages/Test';
 import './index.css';
 
 const routers = createBrowserRouter([
@@ -44,6 +45,10 @@ const routers = createBrowserRouter([
       {
         path: '/courses/:id/reviews',
         element: <Reviews />,
+      },
+      {
+        path: '/courses/:id/test-questions',
+        element: <Test />,
       },
     ],
   },

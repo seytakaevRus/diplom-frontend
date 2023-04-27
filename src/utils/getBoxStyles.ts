@@ -1,4 +1,5 @@
 const drawerBoxStyles = {
+  color: 'white',
   '&:hover': {
     background: '#333',
     cursor: 'pointer',
@@ -6,6 +7,7 @@ const drawerBoxStyles = {
 };
 
 const drawerBoxStylesSelected = {
+  color: 'white',
   background: 'rgba(102,204,102,.5)',
   '&:hover': {
     background: 'rgba(102,204,102,.5)',

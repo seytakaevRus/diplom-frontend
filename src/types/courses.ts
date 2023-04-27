@@ -8,10 +8,8 @@ export type AudienceType = keyof typeof audienceType;
 interface ChapterWithLessons {
   id: number;
   title: string;
-  position: string;
   lessons: {
     id: number;
-    position: string;
     title: string;
   }[];
 }

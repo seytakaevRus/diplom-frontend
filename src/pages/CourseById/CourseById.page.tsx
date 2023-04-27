@@ -7,10 +7,11 @@ import {
 } from '@mui/material';
 import { memo, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';
 import remarkGfm from 'remark-gfm';
+import { Container } from '@mui/system';
 
 import { MarkdownMedia } from '../../components/MarkdownMedia';
 import { fetchCourseById } from '../../store/apis/courses';
@@ -23,8 +24,6 @@ import {
 } from '../../store/slices/lesson';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getDrawerBoxStyles } from '../../utils/getBoxStyles';
-import styles from '../../components/Header/Header.module.css';
-import { Container } from '@mui/system';
 
 const drawerWidth = 300;
 
@@ -76,15 +75,13 @@ export const CourseById = memo(() => {
           sx={getDrawerBoxStyles(false)}
           onClick={() => navigate('reviews')}
         >
-          <Link to="reviews" className={styles.link}>
-            Отзывы
-          </Link>
+           Отзывы
         </Box>
         {chaptersWithLessons.map(
-          ({ position, lessons, title, id: chapterId }) => (
+          ({ lessons, title, id: chapterId }, chapterIndex) => (
             <Box key={chapterId} color="white" p={1}>
-              {`${position}. ${title}`}
-              {lessons.map(({ position, title, id: lessonId }) => (
+              {`${chapterIndex + 1}. ${title}`}
+              {lessons.map(({ title, id: lessonId }, lessonIndex) => (
                 <Box
                   p={1}
                   pr={3}
@@ -94,17 +91,26 @@ export const CourseById = memo(() => {
                   data-lesson-id={lessonId}
                   onClick={onCertainLesson}
                 >
-                  {`${position}. ${title}`}
+                  {`${`${chapterIndex + 1}.${lessonIndex + 1}`}. ${title}`}
                 </Box>
               ))}
             </Box>
           ),
         )}
+        <Box
+          p={1}
+          sx={getDrawerBoxStyles(false)}
+          onClick={() => navigate('test-questions')}
+        >
+            Тест
+        </Box>
       </>
     ) : null;
 
   return (
-    <Container fixed component="main">
+    <Container fixed component="main" sx={{
+      height: '100%'
+    }}>
       <Box
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },

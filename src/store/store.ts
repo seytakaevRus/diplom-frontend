@@ -4,13 +4,15 @@ import authReducer from './slices/auth';
 import coursesReducer from './slices/courses';
 import lessonReducer from './slices/lesson';
 import reviewsReducer from './slices/reviews';
+import testQuestionsReducer from './slices/testQuestions';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     courses: coursesReducer,
     lesson: lessonReducer,
-    reviews: reviewsReducer
+    reviews: reviewsReducer,
+    testQuestions: testQuestionsReducer,
   },
 });
 
